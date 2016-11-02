@@ -1,0 +1,19 @@
+@import 'config/_config.scss';
+@import 'config/_normalizer.scss';
+@import 'config/_breakpoints.scss';
+@import 'config/_grid.scss';
+@import 'config/_utilities.scss';
+@import 'config/_animations.scss';
+
+/**
+	* Inladdning av flexboxgrid
+**/
+
+/** 
+	* Här laddar vi in alla css filer vi har. 
+*/
+@import 'config/_buttons.scss';
+@import 'styles/**/*';
+
+
+

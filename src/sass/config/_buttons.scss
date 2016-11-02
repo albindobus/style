@@ -1,0 +1,230 @@
+/*!
+ * Ladda
+ * http://lab.hakim.se/ladda
+ * MIT licensed
+ *
+ * Copyright (C) 2016 Hakim El Hattab, http://hakim.se
+ */
+
+
+/*************************************
+ * CONFIG
+ */
+
+$spinnerSize: em(10px);
+$button-radius: $radius--default;
+$button-padding: em(6px) em(18px);
+$button-font-size: em(16px);
+$button-animation-speed: 1s;
+$button-text-color: #fff;
+
+/*************************************
+ * MIXINS
+ */
+
+@mixin prefix ( $property, $value ) {
+	-webkit-#{$property}: $value;
+	   -moz-#{$property}: $value;
+	    -ms-#{$property}: $value;
+	     -o-#{$property}: $value;
+	        #{$property}: $value;
+}
+
+@mixin transition( $value ) {
+	-webkit-transition: $value !important; // important to override bootstrap
+	   -moz-transition: $value !important;
+	    -ms-transition: $value !important;
+	     -o-transition: $value !important;
+	        transition: $value !important;
+}
+
+@mixin transform( $value ) {
+	@include prefix( transform, $value );
+}
+
+@mixin transform-origin( $value ) {
+	@include prefix( transform-origin, $value );
+}
+
+@mixin buttonColor( $name, $color ) {
+	&[data-color=#{$name}] {
+		background: $color;
+		&:hover {
+			background-color: lighten( $color, 5% );
+		}
+	}
+}
+
+$green: #2aca76;
+$blue: #53b5e6;
+$red: #ea8557;
+$purple: #9973C2;
+$mint: #16a085;
+
+
+@include buttonColor( 'green', $green );
+@include buttonColor( 'blue', $blue );
+@include buttonColor( 'red', $red );
+@include buttonColor( 'purple', $purple );
+@include buttonColor( 'mint', $mint );
+
+
+/*************************************
+ * BUTTON BASE
+ */
+
+.button {
+	position: relative;
+	display:block;
+
+	&.block {
+		width:100%;
+	}
+}
+
+/* Progress bar */
+.button .ladda-progress {
+	position: absolute;
+	width: 0;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: rgba( 0, 0, 0, 0.2 );
+	visibility: hidden;
+	opacity: 0;
+	@include transition( 0.1s linear all );
+}
+	.button[data-loading] .ladda-progress {
+		opacity: 1;
+		visibility: visible;
+	}
+
+
+/*************************************
+ * EASING
+ */
+
+.button,
+.button .ladda-spinner,
+.button .ladda-label {
+	@include transition( 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275) all );
+}
+
+.button[data-style=zoom-in],
+.button[data-style=zoom-in] .ladda-spinner,
+.button[data-style=zoom-in] .ladda-label,
+.button[data-style=zoom-out],
+.button[data-style=zoom-out] .ladda-spinner,
+.button[data-style=zoom-out] .ladda-label {
+	@include transition( 0.3s ease all );
+}
+
+
+/*************************************
+ * EXPAND LEFT
+ */
+
+.button[data-style=expand-right] {
+	.ladda-spinner {
+		right: $spinnerSize/-2 + 10;
+	}
+
+	&[data-size="s"] .ladda-spinner,
+	&[data-size="xs"] .ladda-spinner {
+		right: $spinnerSize/-2 + 4;
+	}
+
+	&[data-loading] {
+		padding-right: 56px;
+		&[data-size="s"],
+		&[data-size="xs"] {
+			padding-right: 40px;
+		}
+	}
+}
+
+
+/*************************************
+ * EXPAND RIGHT
+ */
+
+.button[data-style=expand-left] {
+	@include loader(after, $spinnerSize, $spinnerSize) {
+		left: $spinnerSize * 1.25;
+		top: 50%;
+		opacity: 0;
+		pointer-events: none;
+		margin: auto;
+  		top: 0; 
+  		bottom: 0;
+  		border-radius: 50%;
+    	border: em(3px) solid palette(grey, x-light);
+    	border-top-color: #fff;
+    	animation: spin $button-animation-speed infinite;
+	}
+	&[data-loading] {
+		padding-left: em(40px);
+		&[data-size="s"],
+		&[data-size="xs"] {
+			padding-left: 35px;
+		}
+		&:after {
+			opacity: 1;
+		}
+	}
+}
+
+
+
+///////////////////
+
+
+/*************************************
+ * BUTTON THEME
+ */
+
+.button {
+	padding: $button-padding;
+	border-radius: $button-radius;
+	font-size: $button-font-size;
+	color: $button-text-color;
+	cursor: pointer;
+	border: 0;
+	-webkit-appearance: none;
+	-webkit-font-smoothing: antialiased;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	&[disabled],
+	&[data-loading] {
+		border-color: rgba( 0, 0, 0, 0.07 );
+		&, &:hover {
+			cursor: default;
+			background-color: palette(grey, light);
+		}
+	}
+
+	&[data-size=xs] {
+		font-size: $button-font-size * 0.8;
+	}
+
+	&[data-size=s] {
+		font-size: $button-font-size * 0.9;
+	}
+
+	&[data-size=l] {
+		font-size: $button-font-size * 1.2;
+	}
+
+	&[data-size=xl]  {
+		font-size: $button-font-size * 1.4;
+	}
+}
+
+
+
+
+
+
+
+
+
+
