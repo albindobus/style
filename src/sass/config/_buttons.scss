@@ -17,6 +17,7 @@ $button-padding: em(6px) em(18px);
 $button-font-size: em(16px);
 $button-animation-speed: 1s;
 $button-text-color: #fff;
+$button-text-transform: normal;
 
 /*************************************
  * MIXINS
@@ -188,6 +189,7 @@ $mint: #16a085;
 	border-radius: $button-radius;
 	font-size: $button-font-size;
 	color: $button-text-color;
+	text-transform: $button-text-transform;
 	cursor: pointer;
 	border: 0;
 	-webkit-appearance: none;
